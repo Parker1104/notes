@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <!-- 
+    概念：
+    同源：协议、域名、端口号都一致，那就是同源
+    非同源：协议、域名、端口号有一项不一致，就是非同源
+
+    问题出现场景：一般在前后端分离的项目会产生跨域问题 
+
+    方式一：JSONP请求（前后端相互配合，需要做相应的设置）
+    概念：利用html可跨域标签<script/>，<script src="http:127.0.0.1:8080/list?calback=func"/>
+    calback为服务端回调函数，且在前端代码中必须有相应的全局callback函数用于接收数据
+    
+    JQaury实现JSONP
+    $.ajax({
+      url: 'http://127.0.0.1:8080/list',
+      method: 'get',
+      dataYtpe: 'jsonp'
+      success: res => {
+        console.log(res)
+      }
+    })
+    缺陷：
+      1、html中的src都是资源文件GET请求，所以jsonp只支持GET请求
+      2、需要服务的支持，写回调
+
+    方式二：CORS跨域资源共享（后端设置，前端了解）
+      1、客户端发送ajax请求
+      2、服务端设置相关头信息（需要处理options试探性请求）
+         服务端需要设置对应的 node实现：res.header("Access-Control-Allow-Origin","http地址") 其他语言有其他写法，原理相似
+         缺陷：地址设置缺陷
+         // 设置一个地址
+         // *允许所有地址访问实现多源，但不能携带cookie
+
+    方式三：webpack-dev-server中的proxy webpack.config.js设置changeOrigin：true
+
+
+    方式四：nginx服务器反向代理
+   -->
+</body>
+</html>

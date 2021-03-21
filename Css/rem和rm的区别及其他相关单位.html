@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .box1 {
+      font-size: 10px;
+      width: 1rem;
+      height: 1rem;
+      background-color: red;
+      
+    }
+    .box2 {
+      font-size: 10px;
+      width: 1em;
+      height: 1em;
+      background-color: green;
+    }
+    .box3 {
+      width: 1cm; /* 1cm = 96px/2.54 */
+      border: 1px solid ;
+    }
+  </style>
+</head>
+<body>
+  <!-- 
+    rem： 根元素的字体大小，只能在css选择器 html{}或者伪类:root 中去设置 font-size，不同浏览器大小会有差异
+    em：  当前元素的字体大小，不做设置时继承rem,但是在当前元素或者在当前元素的父级元素中设置了font-size，em的基数也会相应改变
+   -->
+   <div class="box1"></div>
+   <br>
+   <div class="box2"></div>
+   <br>
+   <div class="box3"></div>
+
+   <!-- 
+      相对长度单位
+      em	在 font-size 中使用是相对于父元素的字体大小，在其他属性中使用是相对于自身的字体大小，如 width
+      ex	字符“x”的高度
+      ch	数字“0”的宽度
+      rem	根元素的字体大小
+      lh	元素的line-height
+      vw	视窗宽度的1%
+      vh	视窗高度的1%
+      vmin	视窗较小尺寸的1%
+      vmax	视图大尺寸的1%
+
+      绝对长度单位
+      cm	厘米	1cm = 96px/2.54
+      mm	毫米	1mm = 1/10th of 1cm
+      Q	四分之一毫米	1Q = 1/40th of 1cm
+      in	英寸	1in = 2.54cm = 96px
+      pc	十二点活字	1pc = 1/16th of 1in
+      pt	点	1pt = 1/72th of 1in
+      px	像素	1px = 1/96th of 1in
+    -->
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .box1 {
+      margin: 200px;
+      width: 200px;
+      height: 200px;
+      border: 1px solid black;
+    }
+
+    .box1:hover {
+      /* margin实现移动 */
+      /* margin-top: 205px; */
+      
+
+      /* 移动 */
+      /* translate函数，水平垂直方向上平移 */
+      /* translate函数一个参数时，会使div在水平方向上移动 */
+      /* transform: translate(5px); */
+      /* translate函数两个参数时，会使div在水平和垂直方向上移动 */
+      /* transform: translate(5px,15px); */
+
+      /* 旋转 */
+      /* rotate函数 只支持一个参数 单位：deg度数*/
+      /* transform: rotate(20deg); */
+
+      /* 缩放 */
+      /* 一个值时，宽度X轴和高度Y轴都会按照这个参数进行同样比例的缩放 */
+      /* 二个值时，宽度X轴按照第一个参数缩放，宽度Y轴按照第二个参数缩放*/
+      /* PS:div中的内容也会进行相应的缩放 */
+      /* transform: scale(0.5,1.5); */
+
+
+      /* 倾斜skew */
+      transform: skew(40deg);
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="box1">111</div>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <title>vue</title>
+</head>
+<body>
+  <div id="app">
+    <!-- 不建议在标签上这么做，使页面过于冗余 -->
+    <h2 v-if="score>=90">A</h2>
+    <h2 v-else-if="score>=80">B</h2>
+    <h2 v-else-if="score>=60">C</h2>
+    <h2 v-else>D</h2>
+  </div>
+</body>
+<script>
+  const app = new Vue({
+    el: '#app', 
+    data: {
+      score: 80,
+    },
+    methods: {
+
+    },
+  })
+</script>
+</html>

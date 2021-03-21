@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <title>vue</title>
+</head>
+<body>
+  <div id="app">
+    <cpn></cpn>
+    <cpn></cpn>
+  </div>
+</body>
+
+<template id="cpn">
+  <div>
+    <!-- PS：组件模板中，不能直接使用Vue实例data中的数据 -->
+    <h2>{{title}}</h2>
+    <p>template内容</p>
+  </div>
+</template>
+
+<script>
+  Vue.component('cpn',{
+    template: '#cpn',
+    // 在组件中，必须使用函数 data(){}来存放数据，vue不允许组件中使用对象 data:{}来存放数据
+    // 原理:因为如果使用对象存放数据，会导致组件复用时多个组件“共享”存放同一个内存地址的对象
+    //      数据,一个组件使数据发生变化会使其他组件的数据连锁发生变化,而对象不会发生这种情况
+    data() {
+      return {
+        title: 'template标题'
+      }
+    },
+  })
+
+  const app = new Vue({
+    el: '#app', 
+    // Vue实例中可以用对象 data:{} 或者函数 data(){} 来存放数据
+    data: {
+      // title: 'template标题'
+    },
+  })
+</script>
+
+
+
+
+
+
+<!-- 函数和对象的区别 -->
+<script>
+  // 函数每次执行时，都会在自己的栈空间创建多个变量
+  function fn1 () {
+    return {
+      name: 'a',
+      age: 18
+    }
+  }
+  // 所以以下3个对象时3个不同的对象
+  let obj1 = fn1();
+  let obj2 = fn1();
+  let obj3 = fn1();
+  // 验证：改变obj1中的name属性，obj2、obj3中的name不变
+  obj1.name = 'b';
+  console.log(obj1.name); // "b"
+  console.log(obj2.name); // "a"
+  console.log(obj3.name); // "a"
+
+
+
+  // 调用obj时，obj保存的是该对象的内存地址
+  const obj = {
+    name: 'a',
+    age: 18
+  }
+  function fn2 () {
+    // fn2每次调用都是调用同一个内存地址的对象
+    return obj;
+  }
+  let obj4 = fn2();
+  let obj5 = fn2();
+  let obj6 = fn2();
+  // 验证：改变obj4中的name属性，obj5、obj6中的name都变成了c
+  obj4.name = 'c';
+  console.log(obj4.name); // "c"
+  console.log(obj5.name); // "c"
+  console.log(obj6.name); // "c"
+  // 因为obj4、obj5、obj6调用的是同一个内存地址的对象所以改变其中之一即改变其他所有
+
+
+</script>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .class1 {
+      height: 200px;
+      width: 200px;
+      background-color: aqua;
+      float: right;
+    }    
+    .class2 {
+      height: 200px;
+      width: 200px;
+      background-color: red;
+      float: right;
+    }
+    .class3 {
+      height: 200px;
+      width: 200px;
+      background-color: black;
+      float: right;
+    }
+  </style>
+</head>
+<body>
+  <!-- 
+    float：
+      left	元素向左浮动
+      right	元素向右浮动
+      none	默认值。元素不浮动，并会显示在其在文本中出现的位置
+      inherit	规定应该从父元素继承 float 属性的值
+      
+    一、标准文档流：默认块级元素自上而下排列
+
+      1、HTML行内元素、块状元素、行内块状元素。
+        块级元素：
+          1).霸占一行，不能与其他任何元素并列
+          2).能接受宽、高margin、padding设置上下左右都有效
+          3).如果不设置宽度，那么宽度将默认变为父亲的100%，即和父亲一样宽
+        行内元素（内联元素）：
+          1).与其他元素并排
+          2).不能设置宽、高。默认的宽度就是文字的宽度
+          3).对margin仅设置左右方向有效，上下无效；padding设置上下左右都有效，即会撑大空间
+          4).不会自动进行换行
+　　    行内块状元素特征：
+          1).不自动换行
+　　　　　 2).能够识别宽高
+　　　　　 3).默认排列方式为从左到右
+    　　PS：这三者是可以互相转换的，使用display属性能够将三者任意转换
+    　　  1).display:inline;转换为行内元素
+    　　  2).display:block;转换为块状元素
+    　　  3).display:inline-block;转换为行内块状元素
+
+    二、理解float布局的四大性质
+        1、添加浮动的元素脱离标准文档流
+        2、浮动的元素相互贴靠，当浏览器宽度变窄时，会出现贴靠现象
+        3、字围效果，例：当一个div中设置浮动，而P标签内不设置浮动，两个块级元素重叠，但是div内容不会遮挡住P标签内的字，会出现字围效果
+        4、收缩，当div不设置浮动时，如果添加背景颜色会发现div的背景颜色是一整行，但设置浮动后，没设置宽度时背景颜色会收缩到内容的宽度
+      
+   -->
+
+   <div class="class1"></div>
+   <div class="class2"></div>
+   <div class="class3"></div>
+
+</body>
+</html>

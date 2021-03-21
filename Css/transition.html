@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+  .block {
+    width: 100px;
+    height: 100px;
+    background-color: black;
+    /* 只有有中间值的属性，才能改变 */
+    transition: 1s;
+  }
+  .block:hover {
+    width: 300px;
+    height: 300px;
+    border-radius: 50% ;
+  }
+</style>
+<body>
+
+  <!-- 
+    1、transition-property 指定应用过渡属性的名称。（比如 background、width、height） 
+    2、transition-duration 属性以秒或毫秒为单位指定过渡动画所需的时间。
+    3、transition-timing-function CSS属性受到 transition effect的影响，会产生不断变化的中间值，此属性用来描述这个中间值是怎样计算的
+    4、transition-delay属性规定了在过渡效果开始作用之前需要等待的时间
+    
+    而：transition属性则是上述属性的综合体
+  -->
+
+
+    <div class="block"></div>
+
+
+</body>
+</html>

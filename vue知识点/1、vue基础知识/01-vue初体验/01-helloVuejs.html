@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>helloVuejs</title>
+</head>
+<body>
+    <div id="app">
+        <h2>{{message}}</h2>
+    </div>
+</body>
+<script>
+
+    // 编程范式：声明式编程 只需要声明需要控制的信息就行了，如message
+    // 优势：做到数据分离
+    const app = new Vue({
+        el: '#app',     // 用于管理要挂载的元素
+        data() {
+            return {
+                message: '信息',
+            }
+        },
+
+
+    // 传统方式（编程范式：命令式范式）按步骤走
+    // 1.创建div元素，设置id属性
+    // 2.定义一个变量交message
+    // 3.将message的变量复制给id属性
+    })
+</script>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>vue</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 1.基本使用 -->
+        <ul>
+            <li v-for="item in names">{{item}}</li>
+        </ul>
+
+        <!-- 2.遍历的过程中，获取索引值 -->
+        <ul>
+            <li v-for="(item,index) in names" :key="item">{{index+1}} {{item}}</li>
+        </ul>
+
+        <!-- PS:绑定:key值要确保唯一性，最好不要使用index索引，因为如果往数组中插入元
+    素，index的值和item的对应关系会发生变化，所以最好绑定item中独有的id或者信息。当
+    绑定好key值后，往数组中插入值时vue虚拟DOM中的diff算法会最大限度的提升效率 -->
+
+        <a href="https://www.bilibili.com/video/BV15741177Eh?p=38&spm_id_from=pageDriver">讲解视频地址</a>
+        <br>
+        <img src="./微信图片_20210305163652.png" alt="">
+    </div>
+</body>
+<script>
+    const app = new Vue({
+        el: '#app',
+        data: {
+            message: "hello",
+            names: ['A', 'B', 'C', 'D', 'E']
+        },
+        methods: {
+
+        },
+    })
+</script>
+
+</html>

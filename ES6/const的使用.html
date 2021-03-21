@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 1、一旦const修饰的标识符被赋值后，不能被修改
+    const name = "helloVue";
+    name = "another value"; // 会报错
+
+    // 2、使用const修饰标识符，必须进行赋值
+    const name; // 报错
+
+    // 3、当const修饰的标识符为对象时，不能指向修改指向的对象，但可以改变对象内部的属性值
+    const obj = {
+      name: '',
+      age: '',
+    }
+    obj = {} // 不能指向另一个对象，会报错，改变了对象的内存地址。
+    obj.name = 'abc' // 可以进行赋值
+
+
+// PS：字符串是一种对象，而const、let中保存的是一个对象的“内存地址”，const只能保存初始定义中的内存对象地址，
+// 而字符串改变也就是指向到另一个字符串对象，所以会报错，而改变自定义对象内部属性时，没有改变对象的地址所以是被允许的。
+  </script>
+</body>
+</html>

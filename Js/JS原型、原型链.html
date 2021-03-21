@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+
+    function Person () {
+      let name = '哈哈';
+      function sayName () {
+        console.log(this.name);
+      }
+    }
+
+    person1 = new Person();
+    person2 = new Person();
+    person3 = new Person();
+    
+    console.log("Person.prototype:",Person.prototype);
+    console.log("person1.__proto__:",person1.__proto__);
+
+    let a = {}
+    console.log(a.__proto__);
+    n = 1
+    console.log(++n);
+    console.log(n);
+  </script>
+</body>
+</html>

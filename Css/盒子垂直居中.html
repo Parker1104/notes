@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    /* 1、使用padding垂直居中 */
+    .box1 {
+      width: 200px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      border: 1px solid black;
+    }
+
+    /* 2、设置line-height */
+    .box2 {
+      width: 200px;
+      height: 100px;
+      border: 1px solid black;
+    }
+    .box2 div {
+      text-align: center;
+      line-height: 100px;
+    }
+
+    /* 3、flex布局 */
+    .box3 {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 200px;
+      border: 1px solid black;
+    }
+    .box3 span {
+      line-height: 100px;
+    }
+
+    /* 4、子绝父相 */
+    .box4 {
+      position: relative;
+      width: 200px;
+      height: 100px;
+      border: 1px solid black;
+    }
+    .box4 div {
+      width: 100%;
+      top: 50%;       /* 父元素position: relative，子元素position: absolute时，top属性就能定位子元素顶部至父元素顶部的位置 */
+      position: absolute;
+      text-align: center;
+      transform: translateY(-50%);
+    }
+
+    /* 5、vertical-align：middle  :vertical-align 用来指定行内元素（inline）或表格单元格（table-cell）元素的垂直对齐方式。*/
+    #verticalAlign.box5 {
+      width: 200px;
+      height: 100px;
+      border: 1px solid black;
+    }
+    .box5 span {
+      display: inline-block;
+      vertical-align: middle;
+      border: 1px solid black;
+    }
+    #verticalAlign::after {
+      content: '';
+      display: inline-block;
+      vertical-align: middle;
+      width: 0;
+      height: 100%;
+    }
+
+
+
+
+  </style>
+</head>
+<body>
+
+  1、使用padding垂直居中
+  <div class="box1">
+    <div style="text-align:center">你 好</div>
+  </div>
+  <br>
+  2、设置line-height
+  <div class="box2">
+    <div>你 好</div>
+  </div>
+  <br>
+  3、flex布局
+  <div class="box3">
+    <span>你 好</span>
+  </div>
+  <br>
+  4、子绝父相
+  <div class="box4">
+    <div>你 好</div>
+  </div>
+  <br>
+
+  <div id="verticalAlign" class="box5">
+    <span>你 好 </span>
+  </div>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <title>vue</title>
+</head>
+<body>
+
+  <!-- 父组件模板的所有东西都会在父级作用域内编译；子组件模板的所有东西都会在子级作用域内编译。 -->
+  <div id="app">
+    <!-- 在父组件的data中找变量isShow=true，所以显示 -->
+    <my-cpn v-show="isShow"></my-cpn>
+  </div>
+  
+</body>
+
+<template id="myCpn">
+  <div>
+    <!-- 在子组件的data中找变量isShow=false，所以不显示 -->
+    <h2 v-show="isShow">组件</h2>
+    <p>内容</p>
+  </div>
+</template>
+
+<script>
+
+  const myCpn = {
+    template: '#myCpn',
+    data() {
+      return {
+        isShow: false,
+      }
+    },
+  }
+
+  const app = new Vue({
+    el: '#app', 
+    data: {
+      isShow: true,
+    },
+    components: {
+      myCpn
+    }
+  })
+</script>
+</html>

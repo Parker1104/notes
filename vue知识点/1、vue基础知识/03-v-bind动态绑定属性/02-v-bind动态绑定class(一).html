@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>vue</title>
+</head>
+<style>
+  .red {
+    color: red
+  }
+
+</style>
+<body>
+    <div id="app">
+
+        <!-- 绑定方式：对象，<button :class="{类名:boolean, 类名:boolean}" @click="btnClick">按钮</button> 通过{类名:boolean, 类名:boolean}的方式可动态显示class，且其他原生class可共存 -->
+        <button class="green" :class="{red: isRed}" @click="btnClick">按钮</button>
+
+        <!-- 如果{}中的内容过多可用函数代替 -->
+        <button class="green" :class="getClass()" @click="btnClick">按钮</button>
+
+        <!-- 绑定方式：数组，可用数组展示class -->
+        <button class="green" :class="[classA, classB]" @click="btnClick">按钮</button>
+    </div>
+</body>
+<script>
+
+    const app = new Vue({
+        el: '#app',
+        data() {
+            return {
+              isRed: true,
+              classA: 'red',
+              classB: 'green'
+            }
+        },
+        methods: {
+          btnClick: function () {
+            this.isRed = !this.isRed
+            // if (this.isRed == true) this.isRed = false
+            // else this.isRed = true
+          },
+          getClass: function () {
+            return {red: this.isRed}
+          }
+        },
+    })
+</script>
+</html>

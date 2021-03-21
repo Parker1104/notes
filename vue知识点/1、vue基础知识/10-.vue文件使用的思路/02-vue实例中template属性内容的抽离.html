@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <title>vue</title>
+</head>
+<body>
+
+  <!-- 所以开发中一般不会去改html中的元素 -->
+  <div id="app">
+  </div>
+
+</body>
+<script>
+
+  // 将组件中的内容抽离到一个对象
+  const App = {
+    template: `
+    <div>
+      <h2>{{message}}</h2>
+      <h2>{{name}}</h2>
+      <button @click="btnClick">按钮</button>
+    </div>`,
+    data() {
+      return {
+          message: "hello",
+          name: "vue"
+      }
+    },
+    methods: {
+      btnClick() {
+        alert("哈哈")
+      }
+    },
+  }
+
+  const app = new Vue({
+
+    // 当vue实例中有template属性时，在页面渲染时，vue会用template中的所有内容替换掉el挂载的区域，所以开发中真正div内一般不会有实际内容。
+    el: '#app',
+    // 使用组件 
+    template: `<App/>`,
+    // 注册组件
+    components: {
+      App
+    }
+  })
+</script>
+</html>

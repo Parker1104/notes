@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <!-- 
+    伪类：
+      概念：CSS 伪类 是添加到选择器的关键字，指定要选择的元素的特殊状态。例  ':hover' 可被用于在用户将鼠标悬停在按钮上时改变按钮的颜色。
+      示例：  
+        /* 所有用户指针悬停的按钮 */
+        button:hover {
+          color: blue;
+        }
+        
+    伪元素:
+      概念：伪元素是一个附加至选择器末的关键词，允许你对被选择元素的'特定部分'修改样式。
+      示例：
+        /* 每一个 <p> 元素的第一行。 */
+        p::first-line {
+          color: blue;
+          text-transform: uppercase;
+        }
+        ::after：用来创建一个伪元素，作为已选中元素的最后一个子元素。通常会配合content属性来为该元素添加装饰内容。PS：解决清楚浮动塌陷
+          /* Add an arrow after links 这个虚拟元素默认是行内元素。*/
+          a::after {
+            content: "→"; /* block、inblock */
+          }
+        ::before 创建一个伪元素，其将成为匹配选中的元素的第一个子元素
+        ::first-letter会选中某 block-level element（块级元素）第一行的第一个字母，并且文字所处的行之前没有其他内容（如图片和内联的表格）
+        ::first-line CSS pseudo-element （CSS伪元素）在某 block-level element （块级元素）的第一行应用样式。第一行的长度取决于很多因素，包括元素宽度，文档宽度和文本的文字大小。
+        ::selection CSS伪元素应用于文档中被用户高亮的部分（比如使用鼠标或其他选择设备选中的部分）。
+        ::slotted() CSS 伪元素 用于选定那些被放在 HTML模板 中的元素
+
+   -->
+</body>
+</html>

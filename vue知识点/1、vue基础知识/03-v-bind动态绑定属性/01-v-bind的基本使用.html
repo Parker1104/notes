@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>vue</title>
+</head>
+<body>
+    <div id="app">
+        <!-- v-bind可动态绑定属性的值 -->
+        <img v-bind:src="imgUrl" alt="">
+        <a v-bind:href="baiduUrl">百度一下</a>
+        <!-- :为v-bind的语法糖可代替v-bind -->
+        <a :href="googleUrl">google</a>
+    </div>
+</body>
+<script>
+
+    const app = new Vue({
+        el: '#app',
+        data() {
+            return {
+              message: '你好',
+              imgUrl: 'https://www.baidu.com/img/PCfb_5bf082d29588c07f842ccde3f97243ea.png',
+              baiduUrl: 'https://www.baidu.com',
+              googleUrl: 'https://www.google.com.hk/'
+            }
+        },
+
+    })
+</script>
+</html>

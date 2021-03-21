@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <title>vue</title>
+</head>
+<body>
+
+  <!-- 父组件模板 -->
+  <div id="app">
+    <!-- 自定义事件不用写参数 -->
+    <cpn :child-categories="categories" @item-click="categoriesClick"></cpn>
+  </div>
+  
+</body>
+
+<!-- 子组件模板 -->
+<template id="cpn">
+  <div>
+    <button v-for="item in childCategories" @click="btnClick(item.id)">{{item.name}}</button>
+  </div>
+</template>
+
+<script>
+  const cpn = {
+    template: '#cpn',
+    props: {
+      childCategories: Array,
+      default () {
+        return []
+      }
+    },
+    methods: {
+      btnClick (id) {
+        // 自定义事件
+        this.$emit('item-click',id);
+      }
+    },
+  }
+
+  const app = new Vue({
+    el: '#app', 
+    data: {
+      categories: [
+        {id:"a",name:"热门推荐"},
+        {id:"b",name:"手机数码"},
+        {id:"c",name:"家用家电"},
+        {id:"d",name:"电脑办公"},
+      ]
+    },
+    // ES6 对象字面量增强
+    components: {
+      cpn
+    },
+    methods: {
+      // 可以获取到子组件自定义方法中带的参数
+      categoriesClick (id) {
+        console.log("categoriesClick id:" + id);
+      }
+    },
+
+  })
+</script>
+</html>

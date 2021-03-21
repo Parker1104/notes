@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+
+    // 1、定义函数的方式：function
+    // function fn () {
+
+    // }
+
+    // 2、对象字面量定义
+    // let obj = {
+    //   fn1: function () {},
+    //   fn2(){}
+    // }
+
+
+    // 3、ES6中箭头函数
+    let fn1 = () => {}
+    let fn2 = (num1,num2) => { return num1 + num2 }
+    // 参数只有一个时，括号可以省略
+    let fn3 = num => { num * num }
+
+    // 当箭头函数中的代码只有一行时，可以省略大括号{}，且会将结果作为返回值
+    let fn4 = () => console.log("haha")       // 返回undefined
+    let fn5 = (num1,num2) => num1 + num2      // 返回两数之和
+
+
+    // 箭头函数的this指向问题
+    // 向外层作用域一层层查找，直到有this的定义
+    let obj = {
+      fn () {
+
+        setTimeout(function(){
+          console.log(this);    // 打印window
+        });
+
+        setTimeout(() => {
+          console.log(this);    // 打印obj
+        });
+
+        setTimeout(() => {
+          
+          setTimeout(() => {
+            console.log(this);    // 打印obj
+          });
+          
+          setTimeout(function(){
+            console.log(this);    // 打印window
+          });
+
+        });
+        setTimeout(function(){
+          setTimeout(() => {
+            console.log(this);    // 打印window,因为外层作用域中this指向window
+          });
+          
+          setTimeout(function(){
+            console.log(this);    // 打印window
+          });
+        });
+      }
+    }
+
+    obj.fn();
+  </script>
+</body>
+</html>

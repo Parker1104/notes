@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <title>vue</title>
+</head>
+<body>
+  <div id="app">
+
+    <!-- 未加小括号时，vue会默认将浏览器event事件当做第一个参数传到方法 -->
+    <button @click="btnClick">按钮1</button>
+    <!-- 有小括号时，不会传递浏览器event事件 -->
+    <button @click="btn2Click()">按钮2</button>
+    <!-- 定义方法时，我们需要浏览器event事件，同时需要其他参数时，我们使用$event来获取 -->
+    <button @click="btn3Click(message,$event)">按钮3</button>
+  </div>
+</body>
+<script>
+  const app = new Vue({
+    el: '#app',     // 用于管理要挂载的元素
+    data() {
+      return {
+        message: "hello",
+      }
+    },
+    methods: {
+      // 能够正常显示event事件
+      btnClick: function (event) {
+        console.log("btnClick:",event);
+      },
+      // 显示参数event为undefined
+      btn2Click: function (event) {
+        console.log("btn2Click:",event);
+      },
+
+      // $event可与任何参数绑定
+      btn3Click: function (mess,event) {
+      console.log("btn3Click mess:",mess);
+      console.log("btn3Click event:",event);
+      },
+    },
+  })
+</script>
+</html>

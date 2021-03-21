@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <title>vue</title>
+</head>
+<body>
+
+  <div id="app">
+    <my-cpn></my-cpn>
+    <my-cpn2></my-cpn2>
+  </div>
+
+
+
+</body>
+<script>
+
+  // 语法糖方式不需要创建构造器了
+  // const cpnConstructor = Vue.extend({
+  //   template: `
+  //     <div>
+  //       <h2>组件</h2>
+  //       <p>内容1</p>
+  //       <p>内容2</p>
+  //     </div>`})
+
+  // 语法糖直接将“创建构造器”和“注册组件”将两个步骤结合，直接将变量cpnConstructor，替换成一个对象{template:``}
+  // Vue.component('myCpn',cpnConstructor)
+
+  // 语法糖：全局注册
+  Vue.component('myCpn',{
+    template: `
+      <div>
+        <h2>全局组件</h2>
+        <p>全局组件内容1</p>
+        <p>全局组件内容2</p>
+      </div>`
+  })
+
+
+  // 可理解为root根组件
+  const app = new Vue({
+    el: '#app', 
+    // 语法糖：局部注册
+    components: {
+      'myCpn2': {
+        template: `
+        <div>
+          <h2>局部组件</h2>
+          <p>局部组件内容1</p>
+          <p>局部组件内容2</p>
+        </div>`
+      }
+    }
+  })
+
+  // PS：子组件如只在父组件中注册，则不能在vue实例APP中直接使用，如要使用，则必须在app内进行局部组件注册
+
+
+</script>
+</html>

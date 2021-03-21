@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <title>vue</title>
+</head>
+<body>
+
+  <div id="app">
+    <cpn-parent></cpn-parent>
+    <cpn-parent></cpn-parent>
+  </div>
+
+
+
+</body>
+<script>
+
+  // 1.子组件构造器
+  const cpnConstructorChild = Vue.extend({
+    template: `
+      <div>
+        <h2>子组件</h2>
+        <p>子组件内容1</p>
+        <p>子组件内容2</p>
+      </div>`
+
+  })
+
+  // 2.父组件构造器
+  const cpnConstructorParent = Vue.extend({
+    template: `
+      <div>
+        <h1>父组件</h1>
+        <cpnChild></cpnChild>
+      </div>`,
+    components: {
+      'cpnChild': cpnConstructorChild
+    }
+  })
+
+  // 可理解为root根组件
+  const app = new Vue({
+    el: '#app', 
+    components: {
+      'cpnParent': cpnConstructorParent
+    }
+  })
+
+  // PS：子组件如只在父组件中注册，则不能在vue实例APP中直接使用，如要使用，则必须在app内进行局部组件注册
+
+
+</script>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>vue</title>
+</head>
+<style>
+  .red {
+    color: red;
+  }
+</style>
+<body>
+    <div id="app">
+        <ul>
+          <!-- 4个选项点击一个选项时，点击的选项变红，另外4个选项变黑，且初始第一个选项为红，获取索引"(item,index) in answers"index为数组的索引 -->
+          <li v-for="(item,index) in answers" @click="clickFuc(index)" :class="{red: initFuc(index)}" :key="index">{{item.content}}</li>
+        </ul>
+    </div>
+</body>
+<script>
+
+    const app = new Vue({
+        el: '#app',
+        data() {
+            return {
+              redNum: 0,
+              answers: [
+                { content: "答案1" },
+                { content: "答案2" },
+                { content: "答案3" },
+                { content: "答案4" }
+              ]
+            }
+        },
+        methods: {
+
+          initFuc: function (answerId) {
+            if (this.redNum == answerId) return true
+            else return false
+          },
+
+          clickFuc: function (answerId) {
+            this.redNum = answerId
+          }
+        },
+
+    })
+</script>
+</html>

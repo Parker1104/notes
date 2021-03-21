@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>vue</title>
+</head>
+<body>
+    <div id="app">
+      <ul>
+        <li v-for="item in books" :keys="item.id">书名：{{item.name}} 价格：{{item.price}}</li>
+        <li>ES5：{{totalPriceES5}}</li>
+        <li>ES6ForIn：{{totalPriceES6ForIn}}</li>
+        <li>ES6ForOf：{{totalPriceES6ForOf}}</li>
+      </ul>
+    </div>
+</body>
+<script>
+
+    const app = new Vue({
+        el: '#app',
+        data() {
+            return {
+              books: [
+              {id: 1, name: '红宝书', price: 58},
+              {id: 2, name: '绿宝书', price: 68},
+              {id: 3, name: '算法', price: 72}
+              ]
+            }
+        },
+        computed: {
+          totalPriceES5: function () {
+            let totalPrice = 0;
+            // ES5语法 传统
+            for (let i = 0; i < this.books.length; i++) {
+              totalPrice += this.books[i].price;
+            }
+            return totalPrice
+          },
+          
+          totalPriceES6ForIn: function () {
+            let totalPrice = 0
+            // ES6语法 for in
+            for (let i in this.books) {
+              totalPrice += this.books[i].price
+            }
+            return totalPrice
+          },
+
+          totalPriceES6ForOf: function () {
+            let totalPrice = 0
+            // ES6语法 for of
+            for (let book of this.books) {
+              totalPrice += book.price
+            }
+            return totalPrice
+          },
+        }
+    })
+</script>
+</html>

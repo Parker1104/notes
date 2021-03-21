@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <title>vue</title>
+</head>
+
+<!-- 
+  1.父组件2个num1 num2参数，在子组件上的input标签上展示。
+  2.子组件input上实现num1 num2数据双向绑定。
+  3.将改变的数据传递回父组件并改变父组件数据的值，实现父子组件数据双向绑定。
+  4.改变num1的值，同时num2的值会变成num1的100倍，且改变num2的值，则num1的值会变成num2的百分之1，同时绑定父组件。
+-->
+
+
+<body>
+  <div id="app">
+    <cpn :number1="num1" 
+         :number2="num2"
+         @cpn-change-num1="parentChangeNum1"
+         @cpn-change-num2="parentChangeNum2"/>
+  </div>
+</body>
+
+<template id="cpn">
+  <div>
+    <h2>{{number1}}</h2>
+    <input type="text" :value="cpnNum1" @input="changeNum1"> {{cpnNum1}}
+    <br>
+    <h2>{{number2}}</h2>
+    <input type="text" :value="cpnNum2" @input="changeNum2"> {{cpnNum2}}
+  </div>
+</template>
+
+<script>
+
+  const cpn = {
+    template: '#cpn',
+    props: {
+      number1: Number,
+      number2: Number,
+    },
+    // vue不建议直接操作props里面的属性，所以将props里的属性赋值到data中的属性
+    data() {
+      return {
+        cpnNum1: this.number1,
+        cpnNum2: this.number2
+      }
+    },
+    methods: {
+      changeNum1 (event) {
+
+        // 1.获取数据改变子组件cpnNum1
+        this.cpnNum1 = event.target.value
+        // 2.将获取的数据递给父组件
+        this.$emit('cpn-change-num1', event.target.value)
+        // 3.实现数据变化
+        this.cpnNum2 = this.cpnNum1 * 100
+        // 4.同时将数据传递回父组件
+        this.$emit('cpn-change-num2', this.cpnNum2)
+        
+
+      },
+      changeNum2 (event) {
+
+        this.cpnNum2 = event.target.value
+        this.$emit('cpn-change-num2', event.target.value)
+        this.cpnNum1 = this.cpnNum2 / 100
+        this.$emit('cpn-change-num1', this.cpnNum1)
+
+      },
+    },
+  }
+
+  const app = new Vue({
+    el: '#app', 
+    data: {
+      num1: 1,
+      num2: 2,
+    },
+    components: {
+      cpn
+    },
+    methods: {
+      parentChangeNum1 (cpnNum1) {
+        this.num1 = parseFloat(cpnNum1)
+      },
+      parentChangeNum2 (cpnNum2) {
+        this.num2 = parseFloat(cpnNum2)
+      },
+    },
+  })
+</script>
+</html>

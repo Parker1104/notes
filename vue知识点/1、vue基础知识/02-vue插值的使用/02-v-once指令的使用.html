@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>vue的template</title>
+</head>
+<body>
+    <div id="app">
+      <h2>{{message}}</h2>
+      <!-- v-once指令可使数据发生变化时不跟随变化，即使响应式数据失效 -->
+      <h2 v-once>{{message}}</h2> 
+    </div>
+</body>
+<script>
+
+    const app = new Vue({
+        el: '#app',     // 用于管理要挂载的元素
+        data() {
+            return {
+              message: '哈哈',
+            }
+        },
+
+    })
+</script>
+</html>

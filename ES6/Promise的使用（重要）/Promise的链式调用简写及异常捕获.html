@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 不需要reject时，可以不传
+    new Promise((resolve) => {
+      setTimeout(() => {
+        resolve("原始数据")
+      }, 1000)
+    }).then(res => {
+      console.log(res);
+      // 简写方式一、直接返回Promise.resolve()，而不用new一个Promise
+      // return Promise.resolve(res + "第一次操作;")
+      // 简写方式二、省略Promise.resolve()，直接返回结果
+      return res + "第一次操作"
+    }).then(res => {
+      console.log(res);
+      // return Promise.resolve(res + "第二次操作;")
+      return res + "第二次操作"
+    }).then(res => {
+      console.log(res);
+      // 抛出异常只能用简写一，不能用二
+      // return Promise.reject("抛出异常")
+      // 也可以使用手动抛出异常
+      throw "自定义抛出异常"
+    }).then(res => {
+      // 抛出异常后，此次操作不会被执行，直接执行catch()中的代码
+      console.log(res);
+      return res + "第三次操作"
+    }).catch(err => {
+      console.log(err);
+    })
+  </script>
+</body>
+</html>

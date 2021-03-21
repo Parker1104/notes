@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <title>vue</title>
+</head>
+<body>
+  <div id="app">
+    <my-cpn></my-cpn>
+  </div>
+</body>
+
+<template id="myCpn">
+  <div>
+    <h2>组件</h2>
+    <p>内容</p>
+    <slot></slot>
+  </div>
+</template>
+
+<script>
+
+  const myCpn = {
+    template: '#myCpn'
+  }
+
+  const app = new Vue({
+    el: '#app', 
+    data: {
+
+    },
+    components: {
+      myCpn
+    }
+  })
+</script>
+</html>

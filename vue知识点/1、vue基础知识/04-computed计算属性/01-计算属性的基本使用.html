@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>vue</title>
+</head>
+<body>
+    <div id="app">
+      <!-- 普通做法 -->
+      <h2>{{firstName}} {{lastName}}</h2>
+      <h2>{{firstName + ' ' + lastName}}</h2>
+      <!-- 用methods方法函数 -->
+      <h2>{{getFullName()}}</h2>
+      <!-- 在methods中调用Date.now()每次都是不同的时间 -->
+      <h2 @click="nowTime()">时间：{{now}}</h2>
+      <!-- 而在computed中调用Date.now()结果是相同的 -->
+      <h2 @click="getCouputedTime()">时间：{{time}}</h2>
+
+
+      <!-- 所以每次调用methods中的方法时，方法会执行一遍，计算属性是基于它们的响应式依赖进行'缓存'的，
+      只在相关响应式依赖发生改变时它们才会重新求值。这就意味着只要 computed中的参数还没有发生改变，
+      多次访问 getCouputedTime 计算属性会立即返回之前的计算结果，而不必再次执行函数。 -->
+    </div>
+</body>
+<script>
+
+    const app = new Vue({
+        el: '#app',
+        data() {
+            return {
+              now: '',
+              firstName: 'Hello',
+              lastName: 'World',
+            }
+        },
+
+        methods: {
+          getFullName() {
+            return this.firstName + ' ' +this.lastName
+          },
+
+          nowTime: function () {
+            console.log('nowTime');
+            this.now = Date.now();
+          },
+
+          getCouputedTime() {
+            console.log('getCouputedTime');
+            return this.time;
+          }
+        },
+
+        // 有缓存，效率更高，不用进行重复运算
+        computed: {
+          time: function() {
+            return Date.now();
+          }
+        }
+          
+    })
+</script>
+</html>

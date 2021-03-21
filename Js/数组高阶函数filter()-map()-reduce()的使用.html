@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    let arr = [1,2,3,8,11,66,22,122,133];
+    // 1.filter()数组过滤器的使用，返回一个数组
+    // n为arr数组中的子成员，回调函数的返回值为Boolean值，当返回值为true时将结果添加到新数组newfilter_arr中
+    
+    // let newfilter_arr = arr.filter(function (n) { return n < 100 );
+    let newfilter_arr = arr.filter(n => n < 100);
+    console.log("newfilter_arr:", newfilter_arr);
+
+    // 2、map()数组映射的使用，返回一个数组，可对子元素n进行操作，并添加到新的数组中
+    // let newMap_arr = arr.map(function (n) { return n * 2 });
+    let newMap_arr = arr.map(n => n * 2);
+    console.log("newMap_arr:", newMap_arr);
+
+    // 3、reduce()数组的汇总操作，对数组内的每个子集进行遍历,pre为前一个操作的值，初始默认值为0
+    // let newReduce_arr = arr.reduce(function (pre,n) { return pre + n});
+    let newReduce_arr = arr.reduce((pre,n) => pre + n,0)
+    console.log("newReduce_arr:", newReduce_arr);
+    
+  </script>
+</body>
+</html>

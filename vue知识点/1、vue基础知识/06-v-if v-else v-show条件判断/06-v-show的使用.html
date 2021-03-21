@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <title>vue</title>
+</head>
+<body>
+  <div id="app">
+    <!-- v-if:条件为false时，包含b-if指令的元素，根本就不会存在于DOM中 -->
+    <h2 v-if="isShow">{{message}}</h2>
+    <!-- v-show：条件为false时，只是给元素添加一个行内样式display:none -->
+    <h2 v-show="isShow">{{message}}</h2>
+
+    <!-- PS:开发时，如果来回切换的频率非常高时，选择v-show,如果不高选择v-if -->
+  </div>
+</body>
+<script>
+  const app = new Vue({
+    el: '#app', 
+    data: {
+      isShow: true,
+      message: "hello"
+    },
+    methods: {
+
+    },
+  })
+</script>
+</html>

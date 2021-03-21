@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <title>vue</title>
+</head>
+<body>
+  <div id="app">
+    <div @click="divClick">
+      <!-- 事件冒泡问题，点击按钮会出发外层的divClick事件 -->
+      <!-- <button @click="btnClick">按钮</button> -->
+
+      <!-- 1、添加.stop修饰符可解决事件冒泡问题，调用了event.stopPropagation()方法 -->
+      <button @click.stop="btnClick">按钮</button>
+
+      <!-- 2、添加.prevent修饰符可阻止默认事件行为 -->
+      <form action="baidu">
+        <input type="submit" value="提交" @click.prevent.stop="submit">
+      </form>
+      
+      <br>
+      <!-- 3、键盘监听事件，监听某个键位.{keyCode | keyAlias} -->
+      <!-- 不使用修饰符的情况下是监听每一个键位 -->
+      <input type="text" @keyup="keyUp()">
+
+      <br>
+      <!-- 使用后之坚挺.enter键位 -->
+      <input type="text" @keyup.enter="onEnter()">
+
+      <!-- 4、.native监听组件根元素的原生事件 -->
+      <!-- <component @Click.native="componentClick"></component> -->
+
+    </div>
+
+
+    <br>
+    <!-- 5、.once修饰符可使事件只回调一次 -->
+    <button @click.stop.once="btnClick">按钮once</button>
+  </div>
+
+  <!-- PS：事件冒泡的传统解决方式可见JS补充知识点 -->
+  <!-- PS:修饰符可串联使用，例：@click.prevent.stop -->
+
+</body>
+<script>
+  const app = new Vue({
+    el: '#app', 
+    data: {
+
+    },
+    methods: {
+      divClick () {
+        console.log("divClick");
+      },
+      btnClick () {
+        console.log("btnClick");
+      },
+      submit () {
+        console.log("提交到服务器");
+      },
+      keyUp () {
+        console.log("keyUp");
+      },
+      onEnter () {
+        console.log("onEnter");
+      }
+    },
+  })
+</script>
+</html>

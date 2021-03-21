@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <title>vue</title>
+</head>
+<body>
+  <div id="app">
+    <!-- 问题：点击切换时，已经在input输入框的信息不会消除，原因是vue考虑到性能会根据虚拟DOM（Virtual DOM）进行组件复用，从而只更换必要的属性 -->
+    <button @click="changemodel">切换</button>
+    <br>
+    <!-- <span v-if="isUserName">
+      用户名:
+      <input type="text" id="userName" placeholder="用户名">
+      <button @click="">登录</button>
+    </span>
+    <span v-else>
+      邮箱:
+      <input type="text" id="email" placeholder="邮箱">
+      <button @click="">登录</button>
+    </span> -->
+
+    <!-- 加入属性key值标识，就可以解决此问题 -->
+    <span v-if="isUserName">
+      用户名:
+      <input type="text" id="userName" placeholder="用户名" key="userName">
+      <button @click="">登录</button>
+    </span>
+    <span v-else>
+      邮箱:
+      <input type="text" id="email" placeholder="邮箱" key="email">
+      <button @click="">登录</button>
+    </span>
+  </div>
+</body>
+<script>
+  const app = new Vue({
+    el: '#app', 
+    data: {
+      isUserName: true,
+    },
+    methods: {
+      changemodel () {
+        this.isUserName = !this.isUserName;
+      }
+    },
+  })
+</script>
+</html>

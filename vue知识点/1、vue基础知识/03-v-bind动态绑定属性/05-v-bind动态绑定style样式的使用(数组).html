@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>vue</title>
+</head>
+<body>
+    <div id="app">
+        <!-- 数组中存带有CSS样式的对象 -->
+        <h2 :style="[backgroundColor, fontSize]">{{message}}</h2>
+    </div>
+</body>
+<script>
+
+    const app = new Vue({
+        el: '#app',
+        data() {
+            return {
+              message: '你好',
+              backgroundColor: {backgroundColor: 'red'},
+              fontSize: {fontSize: '50px'},
+            }
+        },
+    })
+</script>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>vue</title>
+</head>
+<body>
+    <div id="app">
+      <!-- 只调用了一次 -->
+      <h2>{{fullName}}</h2>
+      <h2>{{fullName}}</h2>
+      <h2>{{fullName}}</h2>
+
+      <!-- 调用了三次 -->
+      <h2>{{getFullName()}}</h2>
+      <h2>{{getFullName()}}</h2>
+      <h2>{{getFullName()}}</h2>
+
+    </div>
+</body>
+<script>
+
+    const app = new Vue({
+        el: '#app',
+        data() {
+            return {
+              firstNmae: 'Hello',
+              lastNmae: 'World',
+            }
+        },
+
+        methods: {
+          // 调用几次就执行几次
+          getFullName () {
+            console.log("getFullName");
+            return this.firstNmae + ' ' + this.lastNmae;
+          }
+        },
+
+        computed: {
+         // 当属性（firstNmae lastNmae）没有发生变化时，只调用一次，之后都是缓存,效率更高
+          fullName: function () {
+            console.log("computed fullName");
+            return this.firstNmae + ' ' + this.lastNmae;
+          }
+        },
+
+    })
+</script>
+</html>

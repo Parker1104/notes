@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui">
+  <meta name="screen-orientation" content="portrait" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="full-screen" content="yes">
+  <meta name="x5-fullscreen" content="true">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <title>vue</title>
+</head>
+<style>
+  body {
+    background-color: salmon;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .buttontd {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+  
+  .btn {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+</style>
+
+<body>
+  <div id="app" style="background-color:white;">
+
+
+    <table border="1" v-if="isShow">
+      <thead>
+        <tr>
+          <td>书籍名称</td>
+          <td>出版日期</td>
+          <td>书籍价格</td>
+          <td>购买数量</td>
+          <td>操作</td>
+        </tr>
+      </thead>
+      <tr v-for="(item,index) in bookItems" :key="item.id">
+        <td>{{item.name}}</td>
+        <td>{{item.publicationDates}}</td>
+        <td>{{item.price | showPrice}}</td>
+        <td class="buttontd">
+          <button class="btn" @click="btnDecrement(index)" :disabled="item.count<=1">-</button>
+          <span>{{item.count}}</span>
+          <button class="btn" @click="btnIncrement(index)">+</button>
+        </td>
+        <td>
+          <button @click="btnDelete(index)">移除</button>
+        </td>
+      </tr>
+    </table>
+    <div>
+      <span v-if="isShow">总价：{{totalPrice | showPrice}}</span>
+      <h2 v-else>购物车为空</h2>
+    </div>
+
+
+  </div>
+</body>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data() {
+      return {
+        isShow: true,
+        bookItems: [{
+          id: 0,
+          name: "算法导论",
+          publicationDates: "2006-09",
+          price: 85,
+          count: 1
+        }, {
+          id: 1,
+          name: "算法",
+          publicationDates: "2015-09",
+          price: 190,
+          count: 1
+        }, {
+          id: 2,
+          name: "红宝书",
+          publicationDates: "2020-09",
+          price: 27,
+          count: 1
+        }, {
+          id: 3,
+          name: "绿宝书",
+          publicationDates: "2012-09",
+          price: 83,
+          count: 1
+        }, {
+          id: 4,
+          name: "月圆之夜",
+          publicationDates: "2011-09",
+          price: 75,
+          count: 1
+        }, {
+          id: 5,
+          name: "重构",
+          publicationDates: "2016-09",
+          price: 105,
+          count: 1
+        }, ]
+      }
+    },
+
+    computed: {
+      totalPrice() {
+        let book_items = this.bookItems
+        // 1、传统方式
+        // for (let i = 0; i < book_items.length; i++) {
+        //   totalPrice += book_items[i].price * book_items[i].count
+        // }
+
+        // 2、 ES6 for in
+        // for (let i in book_items) {
+        //   totalPrice += book_items[i].price * book_items[i].count
+        // }
+
+        // 3、ES6 for of
+        // for (let book_item of book_items) {
+        //     totalPrice += book_item.price * book_item.count
+        // }
+
+        // 4、JS高阶函数 filter map reduce
+        let totalPrice = book_items.map(n => n.price * n.count).reduce((pre,n) => pre + n,0)
+        console.log("totalPrice:" + totalPrice);
+        return totalPrice
+      }
+    },
+
+    methods: {
+      btnIncrement(id) {
+        this.bookItems[id].count++
+      },
+
+      btnDecrement(id) {
+        this.bookItems[id].count--
+      },
+
+      btnDelete(id) {
+        console.log(id);
+        this.bookItems.splice(id, 1)
+        if (this.bookItems.length < 1) {
+          this.isShow = !this.isShow
+        }
+      }
+    },
+
+    // 过滤器
+    filters: {
+      showPrice(price) {
+        // .toFixed(2)方法保留2位小数
+        return '￥' + price.toFixed(2)
+      }
+    }
+
+  })
+</script>
+
+</html>

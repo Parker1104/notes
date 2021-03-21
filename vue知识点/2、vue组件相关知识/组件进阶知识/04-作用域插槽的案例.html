@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <title>vue</title>
+</head>
+<body>
+  <div id="app">
+    <my-cpn></my-cpn>
+
+    <my-cpn>
+      <!-- 用template标签，slot-scope="自定义参数名"进行接收插槽内的数据 -->
+      <!-- 2.6.0版本起 slot-scope的显示方式已废弃 -->
+      <!-- <template slot-scope="cpnPLanguages"> -->
+
+      <!-- 新写法v-slot可直接获取数据 -->
+      <template v-slot="slotProps">
+
+        <!-- 自定义参数名.data获取真正的数据 -->
+        <!-- <span v-for="item in cpnPLanguages.data">{{item}}-</span> -->
+
+        <!-- Array.join(' ')拿到数组中的每个元素转化为字符串，并用括号中的字符串进行分割 -->
+        <span>{{slotProps.data.join(" - ")}}</span>
+      </template>
+    </my-cpn>
+  </div>
+</body>
+
+<template id="myCpn">
+  <div>
+    <!-- 作用域插槽，:data="参数名称"，用来传递要跨域的数据 PS：data并不是固定的，是可自定义的-->
+    <slot :data="pLanguages">
+      <ul>
+        <li v-for="item in pLanguages">{{item}}</li>
+      </ul>
+    </slot>
+  </div>
+</template>
+
+<script>
+
+  const myCpn = {
+    template: '#myCpn',
+    data() {
+      return {
+        pLanguages: ['javascript','java','c','c++','python']
+      }
+    },
+  }
+
+  const app = new Vue({
+    el: '#app', 
+    data: {
+
+    },
+    components: {
+      myCpn
+    }
+  })
+</script>
+</html>

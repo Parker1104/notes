@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <!-- 1.概念：Promise是异步编程的一种解决方案：可解决回调地狱-->
+
+  <script>
+
+    // Promise需要传入二个函数
+    // 链式异步请求，解决了回调地狱，使代码更优雅
+
+    // Promise的使用场景：一般是代码中出现异步操作时，使用Promise对这个异步操作进行封装
+    // 一步操作中返回结果正常使用resolve()，执行then()中的代码。返回结果异常，使用reject()执行catch()中的代码
+    new Promise((resolve,reject) => {
+      // 执行第一次异步请求
+      setTimeout(() => {
+        resolve()
+      }, 1000)
+    }).then(()=>{
+      // 第一次异步操作返回成功
+      console.log("第一次异步操作结果代码");
+      console.log("第一次异步操作结果代码");
+      console.log("第一次异步操作结果代码");
+      return new Promise((resolve,reject)=>{
+        // 执行第二次异步请求
+        setTimeout(() => {
+          resolve()
+        }, 1000)
+      }).then(() => {
+        // 第二次异步操作返回成功
+        console.log("第二次异步操作结果代码");
+        console.log("第二次异步操作结果代码");
+        console.log("第二次异步操作结果代码");
+        return new Promise((resolve,reject) => {
+          // 执行第三次异步请求
+          setTimeout(() => {
+            resolve('data')
+          }, 1000)
+        }).then(data => {
+          // 第三次异步操作返回成功
+          console.log("第三次异步操作结果代码" + data);
+          console.log("第三次异步操作结果代码" + data);
+          console.log("第三次异步操作结果代码" + data);
+        })
+      })
+    })
+
+
+    // Promise的第二种写法，.then()中可以传入2个函数，第一个是成功情况下执行，第二个是异常情况下执行
+    new Promise((resolve,reject) => {
+      setTimeout(() => {
+        resolve();
+        //  reject()
+      }, 1000)
+    }).then(
+    // 成功返回值及相关操作
+    data => {
+      console.log(data);
+    },
+    // 拒绝返回值及相关操作
+    err => {
+      console.log(err);
+    })
+
+    document.write("<p>This is inserted.</p>");
+
+  </script>
+</body>
+</html>

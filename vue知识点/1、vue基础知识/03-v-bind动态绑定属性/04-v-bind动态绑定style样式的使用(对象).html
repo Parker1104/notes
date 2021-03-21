@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>vue</title>
+</head>
+<body>
+    <div id="app">
+      <!-- 绑定方式：对象<h2 :style="{key(css属性名): value(属性值)}"></h2> -->
+      <!-- 属性值要加单引号，否则会当作变量去解析 -->
+      <h2 :style="{fontSize: '50px',color: 'red'}">{{message}}</h2>
+      <h2 :style="{fontSize: size + 'px',color: 'red'}">{{message}}</h2>
+      <h2 :style="{fontSize: finalSize}">{{message}}</h2>
+      <!-- 如果{}中的内容过多可用函数代替 -->
+      <h2 :style="getStyle()">{{message}}</h2>
+    </div>
+</body>
+<script>
+
+    const app = new Vue({
+        el: '#app',
+        data() {
+            return {
+              message: '你好',
+              size: 75,
+              finalSize: '100px'
+            }
+        },
+        methods: {
+          getStyle: function () {
+            return {fontSize: this.size + 'px',color: 'red'}
+          }
+        },
+    })
+</script>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <title>vue</title>
+</head>
+
+<body>
+  <div id="app">
+    <ul>
+      <li v-for="item in arrayVal">{{item}}</li>
+    </ul>
+    <button @click="btnClick">操作数组</button>
+  </div>
+</body>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      arrayVal: ['a', 'b', 'c', 'd', 'e']
+    },
+    methods: {
+      btnClick() {
+        // 响应式操作数组方法
+
+        // 1.push()：在数组末尾添加成员
+        // this.arrayVal.push('aaa')
+        // this.arrayVal.push('aaa','bbb')
+
+        // 2.pop()：删除数组中的最后一个元素
+        // this.arrayVal.pop()
+
+        // 3.shift()：删除数组中的第一个元素
+        // this.arrayVal.shift()
+
+        // 4.unshift()：在数组的首位开始添加元素
+        // this.arrayVal.unshift()
+
+
+        // 5.splice()：删除元素、插入元素
+        // 第一个元素为开始操作的数组位数
+        //  1.如果只有一个参数，那么会把数组的元素删除到相应的位数，如下会将数组删除到只剩1个元素
+        // this.arrayVal.splice(1) 即['a','b','c','d','e']变为['a']
+        //  2.删除指定数量的元素，第一个参数同样是开始操作的数组位数，第二个参数是要删除的元素数量
+        // 如下就是从数组的第1位开始往下删除2个元素 即['a','b','c','d','e']变为['a','d','e']
+        // this.arrayVal.splice(1,2)
+        //  3.先删除指定位数开始指定数量的元素，后在指定位置开始添加相应数量的元素
+        // 如下就是从数组的第1位开始删除2个元素，后再添加上'm','n','o'3个元素，即['a','b','c','d','e']变为['a','m','n','o','d','e']
+        // this.arrayVal.splice(1,2,'m','n','o')
+        //  4.在指定位数开始添加元素
+        // 如下就是从数组的第1位开始添加'm','n','o'3个元素，即['a','b','c','d','e']变为['a','m','n','o','b','c','d','e']
+        // this.arrayVal.splice(1,0,'m','n','o')
+
+        // 6.sort()：对数组就行排序
+        // this.arrayVal.sort()
+
+        // 7.reverse()：对数组进行反转
+        // this.arrayVal.reverse()
+
+        // 这种方式不是响应式操作数组的方法
+        // this.arrayVal[0] = "aaa"
+
+
+        // *扩展需求用响应式的方式实现this.arrayVal[0] = "aaa"
+        // 方式一、splice() 推荐*
+        // this.arrayVal.splice(0,1,'aaa')
+        // 方式二、Vuue.set(要修改的对象,索引值,修改后的值)
+        // Vue.set(this.arrayVal,0,'aaaa')
+
+      },
+    },
+  })
+</script>
+
+</html>

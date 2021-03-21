@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <title>vue</title>
+</head>
+<body>
+
+  <div id="app">
+    <h1>app</h1>
+    <my-cpn></my-cpn>
+    <my-cpn></my-cpn>
+  </div>
+
+  <div id="app2">
+    <h1>app2</h1>
+    <my-cpn></my-cpn>
+    <my-cpn></my-cpn>
+  </div>
+
+</body>
+<script>
+
+  // 1.创建组件构造器对象Vue.extend({template:``})
+  const cpnConstructor = Vue.extend({
+    template: `
+      <div>
+        <h2>标题</h2>
+        <p>内容1</p>
+        <p>内容2</p>
+      </div>`
+  })
+
+  // 2.注册组件（全局组件，意味着可以在多个Vue实例中使用）
+  Vue.component('my-cpn', cpnConstructor)
+
+  // Vue实例1
+  const app = new Vue({
+    el: '#app', 
+  })
+
+  // Vue实例2
+  const app2 = new Vue({
+    el: '#app2', 
+  })
+</script>
+</html>

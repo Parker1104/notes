@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <title>vue</title>
+</head>
+<body>
+  <div id="app">
+    <!-- 父组件使用v-bind:子组件props中定义的变量名称="vue实例data中要传递给子组件的变量名称" -->
+    <!-- <cpn :child-movies="movies" :child-message="message"></cpn> -->
+    <cpn :child-movies="movies"></cpn>
+  </div>
+</body>
+<template id="cpn">
+  <!-- 定义子组件模板时必须定义一个根标签 -->
+  <div>
+    <h2>{{childMessage}}</h2>
+    <ul>
+      <li v-for="item in childMovies">{{item}}</li>
+    </ul>
+  </div>
+</template>
+<script>
+
+  const cpn = {
+    template: '#cpn',
+    // 方式1、数组
+    // props: ['childMovies','childMessage'],
+    // 方式2、对象
+    props: {
+      // 1、 类型限制 键值对
+      // childMovies: Array,
+      // childMessage: String,
+
+      // 2、提供默认值 对象
+      childMessage: {
+        type: String,
+        default: "default message",
+        required: true // 默认为false为true时，指定这个属性是必须要传的，不然会报错
+      },
+
+      // 当属性是数组或者对象时，默认值必须使用函数来指定，如果直接用数组或者对象，会报错
+      childMovies: {
+        type: Array,
+        default () {
+          return ["default movies"]
+        },
+        required: true
+      }
+
+    },
+    data() {
+      return {
+        
+      }
+    },
+    methods: {
+      
+    },
+  }
+
+  const app = new Vue({
+    el: '#app', 
+    data: {
+      message: "电影展示页",
+      movies: ['电影1','电影2','电影3','电影4']
+    },
+    // ES6 对象字面量增强
+    components: {
+      cpn
+    }
+  })
+</script>
+</html>

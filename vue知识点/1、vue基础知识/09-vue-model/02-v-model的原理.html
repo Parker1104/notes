@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <title>vue</title>
+</head>
+<body>
+  <div id="app">
+    <!-- <input type="text" v-model="message"> 原理实现-->
+    <!-- 1.v-bind将message的值绑定给value,
+         2.v-on给input绑定一个监听事件，当input中内容变化时动态获取值赋值给message 
+         -->
+
+    <!-- <input type="text" :value="message" @input="valueChange($event)"> -->
+    <input type="text" v-bind:value="message" v-on:input="valueChange($event)">
+    <h2>{{message}}</h2>
+  </div>
+</body>
+<script>
+  const app = new Vue({
+    el: '#app', 
+    data: {
+      message: "hello"
+    },
+    methods: {
+      valueChange (event) {
+        this.message = event.target.value;
+      }
+    },
+  })
+</script>
+</html>

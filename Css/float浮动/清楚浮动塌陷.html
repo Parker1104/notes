@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <!-- 
+    问题描述：对子级元素设置浮动后，元素会脱离文档流，如果父级元素没有设置高度，即为自适应时，浮动元素的高度不会被计算进父级元素的自适应高度，父级元素的高度撑不起来形成浮动塌陷。
+
+    解决方法：
+      方式一：在父级元素中所有子元素的末尾创建一个空的“块级元素”对其样式设置clear:both属性
+        优点：代码量少，理解方便
+        缺点：产生空元素，浪费资源销毁浏览器性能
+      方式二：创建BFC盒子
+        1、第一种方法在父级元素中设置overflow:hidden或者overflow:auto
+        2、第二种方法是将父级元素设置为浮动，即float：left、float：right
+      方式三：添加伪元素
+      .clearfix::after {
+        content:'';
+        display: block;
+        clear: both;
+      }
+      在需要清除浮动的父级元素中添加clearfix类，就能清除浮动，此方法最为推荐。
+  -->
+</body>
+</html>

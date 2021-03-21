@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // let obj = {
+    //   a: 'aa',
+    //   b: 'bb',
+    //   c: 'cc',
+    //   d: 'dd',
+    // }
+    // for (let i in obj) {
+    //   console.log(i + ':' + obj[i])
+    // }
+    // // a:aa b:bb c:cc d:dd
+    // Reflect.ownKeys(obj)
+    // console.log(
+    //   Object.getOwnPropertyNames(obj)
+    // );
+
+    // console.log(
+    //   Object.keys(obj)
+    // );
+
+    // console.log(
+    //   Reflect.ownKeys(obj)
+    // );
+
+    function jsonDeepClone(obj){ 
+      console.log(JSON.stringify(obj));
+      return JSON.parse(JSON.stringify(obj))
+    }
+
+    function createNewObj(obj) {
+      return Object.create(obj)
+    }
+
+    let obj1 = {
+      a: 'aa',
+      b: 'bb',
+      c: 'cc',
+      d: 'dd',
+    }
+    let obj2 = jsonDeepClone(obj1)
+    let obj3 = createNewObj(obj1)
+  </script>
+</body>
+</html>

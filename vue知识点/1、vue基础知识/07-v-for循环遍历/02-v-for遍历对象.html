@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <title>vue</title>
+</head>
+<body>
+  <div id="app">
+    <!-- 1.在遍历对象的过程中，如果只是获取一个值，那么获取的是value -->
+    <ul>
+      <li v-for="item in info">{{item}}</li>
+    </ul>
+
+    <!-- 2.获取对象key、value、index索引的方式 获取顺序：(value,key,index)-->
+    <ul>
+      <li v-for="(value,key,index) in info">{{index+1}} - {{key}}：{{value}}</li>
+    </ul>
+  </div>
+</body>
+<script>
+  const app = new Vue({
+    el: '#app', 
+    data: {
+      message: "hello",
+      info: {
+        name: 'vue',
+        age: '18',
+        height: '188',
+      }
+    },
+    methods: {
+
+    },
+  })
+</script>
+</html>
