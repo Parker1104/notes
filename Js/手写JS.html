@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>手写js</title>
+  </head>
+  <body></body>
+  <script>
+    console.log('手写js')
+    /* 1、compose组合函数
+      含义：函数组合是指将多个函数按顺序执行，前一个函数的返回值作为下一个函数的参数，最终返回结果。
+      手写代码：
+  */
+
+    /* 2、Promise */
+    class MyPromise {
+      constructor(exexutor) {
+        // 初始化state为pending状态
+        this.state = 'pending'
+        // 成功的值
+        this.value = undefined
+        // 失败的原因
+        this.reason = undefined
+
+        // 成功
+        let resolve = value => {
+          if (this.state === 'pending') {
+            this.state = 'fulfilled'
+            this.value = value
+          }
+        }
+        // 失败
+        let reject = reason => {
+          if (this.state === 'pending') {
+            this.state = 'rejected'
+            this.reason = reason
+          }
+        }
+        // 立即执行
+        try {
+          exexutor(resolve, reject)
+        } catch (err) {
+          reject(err)
+        }
+      }
+
+      then(onFulfilled, onRejected) {
+        if (this.state === 'fulfilled') {
+          onFulfilled(this.value)
+        }
+
+        if (this.state === 'rejected') {
+          onRejected(this.reason)
+        }
+      }
+    }
+    let myP = new MyPromise()
+    console.log('', myP())
+
+    let obj = {
+      a: 2
+    }
+    let obj1 = {
+      b: 1
+    }
+
+    const a = (obj.a = obj1.a)
+    // 等价于
+    // const a = obj1.a
+    // obj.a = obj1.a
+
+    console.log('a', a)
+    console.log('obj.a ', obj.a)
+  </script>
+</html>

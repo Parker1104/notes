@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- 
+      diff算法 学习地址：https://github.com/lihongxun945/myblog/issues/33
+      1、什么是虚拟DOM？
+         虚拟DOM是一个对象，一个什么对象，一个用来表示真是DOM的对象
+      
+     -->
+    <!-- 真实DOM -->
+    <div class="box">
+      <h3>我是一个标题</h3>
+      <ul>
+        <li>牛奶</li>
+        <li>咖啡</li>
+        <li>可乐</li>
+      </ul>
+    </div>
+    <!-- 虚拟DOM -->
+    <script>
+      let virtualDOM = {
+        sel: 'div',
+        data: {
+          class: { box: true }
+        },
+        children: [
+          {
+            sel: 'h3',
+            data: {},
+            text: '我是一个标题'
+          },
+          {
+            sel: 'ul',
+            data: {},
+            children: [
+              { sel: 'li', data: {}, text: '牛奶' },
+              { sel: 'li', data: {}, text: '咖啡' },
+              { sel: 'li', data: {}, text: '可乐' }
+            ]
+          }
+        ]
+      }
+    </script>
+    <!-- 单纯说虚拟DOM一定比真是DOM性能高这点是不严谨的 -->
+    <!-- 虚拟DOM算法包括虚拟DOM以及虚拟DOM算法也就是diff算法，更准确的说虚拟DOM算法操作真实DOM，性能要高于直接操作真实DOM -->
+    <!-- 
+      *什么是Diff算法，有什么特点?和传统直接操作DOM有何区别
+        总结：diff算法是一种对比算法。是对新旧两个虚拟DOM的对比算法，对比出哪个虚拟节点有改动，并找出这个虚拟节点，并只更新这个
+        虚拟节点对应的真实节点，而不是更新其他数据没发生改变的节点，实现精准地更新真实DOM，进而提高效率。
+        虚拟DOM算法的损耗计算：总消耗 = 虚拟DOM增删改 + （与Diff算法相关）真实DOM差异增删改 + 较少的重绘和重排
+        真实操作DOM的损耗计算：总消耗 = 真实DOM完全增删改 + （可能较多的节点）重绘和重排
+      
+      *Diff算法的原理
+        新旧虚拟DOM对比时，Diff算法比较只会在同层进行，不会跨层级比较，所以Diff算法是“深度优先算法”
+      
+        1、patch方法
+          这个方法是对比同层的虚拟节点是否为同一种类的标签
+            是：继续执行patchVnode进行深层对比
+            否：直接将整个节点替换成新虚拟节点
+          
+    -->
+    <script>
+      // patch方法核心源码：
+      function patch(oldVnode, vnode, hydrating, removeOnly) {
+        // 如果新节点不存在，老节点存在，则调用 destroy，销毁老节点
+        if (isUndef(vnode)) {
+          if (isDef(oldVnode)) invokeDestroyHook(oldVnode)
+          return
+        }
+
+        let isInitialPatch = false
+        const insertedVnodeQueue = []
+
+        if (isUndef(oldVnode)) {
+          // 新的 VNode 存在，老的 VNode 不存在，这种情况会在一个组件初次渲染的时候出现，比如：
+          // <div id="app"><comp></comp></div>
+          // 这里的 comp 组件初次渲染时就会走这儿
+          // empty mount (likely as component), create new root element
+          isInitialPatch = true
+          createElm(vnode, insertedVnodeQueue)
+        } else {
+          // 判断 oldVnode 是否为真实元素
+          const isRealElement = isDef(oldVnode.nodeType)
+          if (!isRealElement && sameVnode(oldVnode, vnode)) {
+            // 不是真实元素，但是老节点和新节点是同一个节点，则是更新阶段，执行 patch 更新节点
+            patchVnode(oldVnode, vnode, insertedVnodeQueue, null, null, removeOnly)
+          } else {
+            // 是真实元素，则表示初次渲染
+            if (isRealElement) {
+              // 挂载到真实元素以及处理服务端渲染的情况
+              // mounting to a real element
+              // check if this is server-rendered content and if we can perform
+              // a successful hydration.
+              if (oldVnode.nodeType === 1 && oldVnode.hasAttribute(SSR_ATTR)) {
+                oldVnode.removeAttribute(SSR_ATTR)
+                hydrating = true
+              }
+              if (isTrue(hydrating)) {
+                if (hydrate(oldVnode, vnode, insertedVnodeQueue)) {
+                  invokeInsertHook(vnode, insertedVnodeQueue, true)
+                  return oldVnode
+                } else if (process.env.NODE_ENV !== 'production') {
+                  warn(
+                    'The client-side rendered virtual DOM tree is not matching ' +
+                      'server-rendered content. This is likely caused by incorrect ' +
+                      'HTML markup, for example nesting block-level elements inside ' +
+                      '<p>, or missing <tbody>. Bailing hydration and performing ' +
+                      'full client-side render.'
+                  )
+                }
+              }
+              // 走到这儿说明不是服务端渲染，或者 hydration 失败，则根据 oldVnode 创建一个 vnode 节点
+              // either not server-rendered, or hydration failed.
+              // create an empty node and replace it
+              oldVnode = emptyNodeAt(oldVnode)
+            }
+
+            // 拿到老节点的真实元素
+            const oldElm = oldVnode.elm
+            // 获取老节点的父元素，即 body
+            const parentElm = nodeOps.parentNode(oldElm)
+
+            // 基于新 vnode 创建整棵 DOM 树并插入到 body 元素下
+            createElm(
+              vnode,
+              insertedVnodeQueue,
+              // extremely rare edge case: do not insert if old element is in a
+              // leaving transition. Only happens when combining transition +
+              // keep-alive + HOCs. (#4590)
+              oldElm._leaveCb ? null : parentElm,
+              nodeOps.nextSibling(oldElm)
+            )
+
+            // 递归更新父占位符节点元素
+            if (isDef(vnode.parent)) {
+              let ancestor = vnode.parent
+              const patchable = isPatchable(vnode)
+              while (ancestor) {
+                for (let i = 0; i < cbs.destroy.length; ++i) {
+                  cbs.destroy[i](ancestor)
+                }
+                ancestor.elm = vnode.elm
+                if (patchable) {
+                  for (let i = 0; i < cbs.create.length; ++i) {
+                    cbs.create[i](emptyNode, ancestor)
+                  }
+                  // #6513
+                  // invoke insert hooks that may have been merged by create hooks.
+                  // e.g. for directives that uses the "inserted" hook.
+                  const insert = ancestor.data.hook.insert
+                  if (insert.merged) {
+                    // start at index 1 to avoid re-invoking component mounted hook
+                    for (let i = 1; i < insert.fns.length; i++) {
+                      insert.fns[i]()
+                    }
+                  }
+                } else {
+                  registerRef(ancestor)
+                }
+                ancestor = ancestor.parent
+              }
+            }
+
+            // 移除老节点
+            if (isDef(parentElm)) {
+              removeVnodes([oldVnode], 0, 0)
+            } else if (isDef(oldVnode.tag)) {
+              invokeDestroyHook(oldVnode)
+            }
+          }
+        }
+
+        invokeInsertHook(vnode, insertedVnodeQueue, isInitialPatch)
+        return vnode.elm
+      }
+    </script>
+  </body>
+</html>
