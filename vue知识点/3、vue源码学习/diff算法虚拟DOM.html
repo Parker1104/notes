@@ -59,12 +59,11 @@
       *Diff算法的原理
         新旧虚拟DOM对比时，Diff算法比较只会在同层进行，不会跨层级比较，所以Diff算法是“深度优先算法”
       
-        1、patch方法
-          这个方法是对比同层的虚拟节点是否为同一种类的标签
-            是：继续执行patchVnode进行深层对比
-            否：直接将整个节点替换成新虚拟节点
+        1、patch逻辑梳理
+           
           
     -->
+    
     <script>
       // patch方法核心源码：
       function patch(oldVnode, vnode, hydrating, removeOnly) {
@@ -88,7 +87,7 @@
           // 判断 oldVnode 是否为真实元素
           const isRealElement = isDef(oldVnode.nodeType)
           if (!isRealElement && sameVnode(oldVnode, vnode)) {
-            // 不是真实元素，但是老节点和新节点是同一个节点，则是更新阶段，执行 patch 更新节点
+            // 不是真实元素，且是老节点和新节点是同一个节点，则是更新阶段，执行 patch 更新节点
             patchVnode(oldVnode, vnode, insertedVnodeQueue, null, null, removeOnly)
           } else {
             // 是真实元素，则表示初次渲染
